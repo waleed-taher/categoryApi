@@ -8,7 +8,7 @@ const connectToDatabase = require("./db/connection");
 const CategoryDetailsReport = require("./models/category.model.js");
 
 const app = express();
-const PORT = 3001;
+const port = process.env.PORT || 3000;
 const apiCSVFilePath = path.join(__dirname, "dataset", "Category.csv" ) 
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -51,9 +51,10 @@ const getDataFromApi = async () => {
   }
 };
 
-
-app.listen(PORT, async () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(port, "0.0.0.0", async () => {
+    // ...
     await connectToDatabase(MONGODB_URI)
     await getDataFromApi()
-});
+  });
+
+
