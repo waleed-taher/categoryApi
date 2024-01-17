@@ -40,6 +40,7 @@ const getDataFromApi = async () => {
       .on("end", async (rowCount) => {
         console.log(`Parsed ${rowCount} rows`);
         try {
+            await CategoryDetailsReport.deleteMany()
           await CategoryDetailsReport.insertMany(allRec);
           console.log("All records inserted");
         } catch (error) {
