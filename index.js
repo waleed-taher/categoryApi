@@ -7,6 +7,9 @@ const app = express();
 const PORT = 3001;
 const apiCSVFilePath = path.join(__dirname, "dataset", "Category.csv" ) 
 
+app.get('/', (req,res) => {
+    res.send("Hello World");
+})
 
 app.get('/api/category', async (req, res) => {
     try {
