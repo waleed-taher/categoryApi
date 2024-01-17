@@ -43,6 +43,7 @@ const getDataFromApi = async () => {
             await CategoryDetailsReport.deleteMany()
           await CategoryDetailsReport.insertMany(allRec);
           console.log("All records inserted");
+          console.log(allRec)
         } catch (error) {
           console.error("Error inserting records:", error);
         }

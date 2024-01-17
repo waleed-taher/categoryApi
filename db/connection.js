@@ -10,7 +10,7 @@ async function connectToDatabase(MONGODB_URI) {
 
   try {
     db = await mongoose.connect(MONGODB_URI, {
-      dbName: "StockReport",
+      dbName: "api-dwh",
     });
     isConnected = true;
     console.log("MongoDB is connected");
