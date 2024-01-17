@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const fs = require('fs');
 const csv = require("fast-csv");
@@ -8,6 +10,9 @@ const CategoryDetailsReport = require("./models/category.model.js");
 const app = express();
 const PORT = 3001;
 const apiCSVFilePath = path.join(__dirname, "dataset", "Category.csv" ) 
+
+const MONGODB_URI = process.env.MONGODB_URI;
+
 
 app.get('/', (req,res) => {
     res.send("Hello World");
@@ -49,6 +54,6 @@ const getDataFromApi = async () => {
 
 app.listen(PORT, async () => {
     console.log(`Server is running on http://localhost:${PORT}`);
-    await connectToDatabase()
+    await connectToDatabase(MONGODB_URI)
     await getDataFromApi()
 });

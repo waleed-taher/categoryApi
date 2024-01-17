@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
 
-const MONGOURL =
-  "mongodb+srv://waleed:waleed123@vidly.owuqolt.mongodb.net/?retryWrites=true";
+
 let isConnected = false;
-async function connectToDatabase() {
+async function connectToDatabase(MONGODB_URI) {
   if (isConnected) {
     console.log("Database Already Connected");
     return;
   }
 
   try {
-    db = await mongoose.connect(MONGOURL, {
+    db = await mongoose.connect(MONGODB_URI, {
       dbName: "StockReport",
     });
     isConnected = true;
