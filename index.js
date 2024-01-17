@@ -3,7 +3,7 @@ const fs = require('fs');
 const csv = require("fast-csv");
 const path = require("path");
 const connectToDatabase = require("./db/connection");
-const CategoryReport = require("./models/category.model.js");
+const CategoryDetailsReport = require("./models/category.model.js");
 
 const app = express();
 const PORT = 3001;
@@ -15,7 +15,7 @@ app.get('/', (req,res) => {
 
 app.get('/api/category', async (req, res) => {
     try {
-        const data = await CategoryReport.find().lean();
+        const data = await CategoryDetailsReport.find().lean();
         return res.status(200).json(data)
     } catch (error) {
         console.error("Error:", error);
@@ -26,7 +26,7 @@ app.get('/api/category', async (req, res) => {
 const getDataFromApi = async () => {
     const allRec = [];
   try {
-    fs.createReadStream(csvFilePath, { encoding: "utf-8" })
+    fs.createReadStream(apiCSVFilePath, { encoding: "utf-8" })
       .pipe(csv.parse({ headers: true }))
       .on("error", (err) => console.error(err.message))
       .on("data", (row) => {
@@ -35,7 +35,7 @@ const getDataFromApi = async () => {
       .on("end", async (rowCount) => {
         console.log(`Parsed ${rowCount} rows`);
         try {
-          await CategoryReport.insertMany(allRec);
+          await CategoryDetailsReport.insertMany(allRec);
           console.log("All records inserted");
         } catch (error) {
           console.error("Error inserting records:", error);
